@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Mail, MapPin, PhoneCall } from "lucide-react";
+import { Container } from "@/components/layout/Container";
+import { site } from "@/data/site";
 import { FaFacebookF } from "react-icons/fa";
 import {
   FaInstagram,
@@ -8,82 +7,56 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+
+const socialIcons = {
+  facebook: FaFacebookF,
+  x: FaXTwitter,
+  linkedin: FaLinkedinIn,
+  instagram: FaInstagram,
+  youtube: FaYoutube,
+};
 
 const Header = () => {
   return (
-    <div
-      style={{ backgroundColor: "#1c9cf0" }}
-      className="p-2 text-white dark:text-black"
-    >
-      <div className="flex flex-row items-center justify-between ml-40 mr-40">
-        <div className="flex h-5 items-center space-x-4 text-sm">
-          <div>
-            <Button
-              variant="link"
-              asChild
-              className="flex items-center gap-2  text-white hover:underline"
-            >
-              <Link to="mailto:info@blueethio.com">
-                <Mail className="h-4 w-4 text-white" />
-                info@blueethio.com
-              </Link>
-            </Button>
-          </div>
-          <Separator orientation="vertical" />
+    <div className="relative z-[60] bg-[#071018] text-[11px] text-white/70">
+      <Container className="flex h-9 items-center justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-4 sm:gap-6">
+          <a
+            href={`mailto:${site.contact.email}`}
+            className="truncate transition-colors hover:text-white"
+          >
+            {site.contact.email}
+          </a>
+          <a
+            href={`tel:${site.contact.phone.replace(/\s|-/g, "")}`}
+            className="hidden transition-colors hover:text-white sm:inline"
+          >
+            {site.contact.phone}
+          </a>
+          <span className="hidden text-white/40 md:inline">
+            {site.contact.location}
+          </span>
+        </div>
 
-          <div>
-            <Button variant="ghost" className="flex items-center">
-              <PhoneCall />
-              <span>+251-911-41-6595</span>
-            </Button>
-          </div>
-          <Separator orientation="vertical" />
-          <div>
-            <Button variant="ghost">
-              <Link
-                to="mailto:info@blueethio.com"
-                className="flex items-center gap-1"
+        <div className="flex items-center gap-1">
+          {site.social.map((item) => {
+            const Icon = socialIcons[item.icon];
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                aria-label={item.name}
+                className="grid size-7 place-items-center text-white/50 transition-colors hover:text-[#1c9cf0]"
+                onClick={(e) => {
+                  if (item.href === "#") e.preventDefault();
+                }}
               >
-                <MapPin />
-                <span>Addis Ababa, Ethiopia</span>
-              </Link>
-            </Button>
-          </div>
+                <Icon className="size-3" />
+              </a>
+            );
+          })}
         </div>
-
-        <div className="flex flex-row items-center">
-          <Button variant="link" className="p-2">
-            <Link to="mailto:info@blueethio.com">
-              <FaFacebookF className="text-white" />
-            </Link>
-          </Button>
-
-          <Button variant="link" className="p-2">
-            <Link to="mailto:info@blueethio.com">
-              <FaXTwitter className="text-white" />
-            </Link>
-          </Button>
-
-          <Button variant="link" className="p-2">
-            <Link to="mailto:info@blueethio.com">
-              <FaLinkedinIn className="text-white" />
-            </Link>
-          </Button>
-
-          <Button variant="link" className="p-2">
-            <Link to="mailto:info@blueethio.com">
-              <FaInstagram className="text-white" />
-            </Link>
-          </Button>
-
-          <Button variant="link" className="p-2">
-            <Link to="mailto:info@blueethio.com">
-              <FaYoutube className="text-white" />
-            </Link>
-          </Button>
-        </div>
-      </div>
+      </Container>
     </div>
   );
 };
