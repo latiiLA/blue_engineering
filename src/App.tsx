@@ -6,6 +6,7 @@ import OrganizationPage from "@/pages/OrganizationPage";
 import TeamPage from "@/pages/TeamPage";
 import ServicesPage from "@/pages/ServicesPage";
 import ServiceCategoriesPage from "@/pages/ServiceCategoriesPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="about/team" element={<TeamPage />} />
         <Route path="services" element={<ServicesPage />} />
         <Route path="services/categories" element={<ServiceCategoriesPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );
